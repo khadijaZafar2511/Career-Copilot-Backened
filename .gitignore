@@ -1,0 +1,11 @@
+# Ignore individual files
+.env
+secret_credentials.json
+
+# Ignore all log files
+*.log
+
+# Ignore an entire folder (always add a trailing slash)
+node_modules/
+dist/
+.vscode/

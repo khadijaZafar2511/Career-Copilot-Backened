@@ -1,0 +1,30 @@
+Understand JSON and Data Exchange
+taskId: 6a506c366dfe49b57f5adf5b
+Learn HTTP Methods and Status Codes
+taskId: 6a506c366dfe49b57f5adf5c
+  
+  
+
+  {
+    _id: ObjectId('6a4f93eb4c1fa193388f83cb'),
+    title: 'Production Backend Development',
+    roadmapId: ObjectId('6a4f8cb9a33e3801a2d283bc'),
+    order: 5,
+    description: 'Build scalable backend systems by learning logging, testing, file uploads, email services, background jobs, caching, environment management, deployment, and performance optimization.',
+    estimatedDuration: '4 Weeks',
+    __v: 0
+  },
+  {
+    _id: ObjectId('6a4f93eb4c1fa193388f83cc'),
+    title: 'Capstone API Project',
+    roadmapId: ObjectId('6a4f8cb9a33e3801a2d283bc'),
+    order: 6,
+    description: 'Design and build a production-ready backend application with authentication, database integration, documentation, deployment, and real-world API architecture.',
+    estimatedDuration: '5 Weeks',
+    __v: 0
+  }
+]
+
+
+
+
