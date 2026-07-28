@@ -1,7 +1,6 @@
 import express from "express"
 import cors from "cors";
 import passport from "passport";
-import session from "express-session";
 import errorMiddleware from "./Middleware/ErrorHandling.middleware.js";
 import authRouter from "./Routes/Auth.route.js";
 import userRouter from "./Routes/User.routes/User.route.js";
