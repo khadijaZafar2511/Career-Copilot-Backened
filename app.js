@@ -19,9 +19,7 @@ import dotenv from "dotenv";
 
 dotenv.config({ pah: "./env" });
 const app = express();
- app.use(cookieParser());
-app.use(express.json({ limit: "16kb" }));
-app.use(express.urlencoded({ extended: true }))
+
 const allowedOrigins = [
   `${process.env.PRODUCTION_URL}`, // Your local Vite development server
   `${process.env.LOCAL_URL}`, // Add your production frontend URL here later
@@ -29,20 +27,15 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl)
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.indexOf(origin) === -1) {
-        const msg =
-          "The CORS policy for this site does not allow access from the specified Origin.";
-        return callback(new Error(msg), false);
-      }
-      return callback(null, true);
-    },
-    credentials: true, // This allows cookies/headers to pass through safely
+    origin: allowedOrigins,
+    credentials: true,
+    optionsSuccessStatus: 200, // Fixes legacy browser preflight issues (OPTIONS 204 vs 200)
   }),
 );
+ app.use(cookieParser());
+app.use(express.json({ limit: "16kb" }));
+app.use(express.urlencoded({ extended: true }))
+
 app.use(session({
     secret:process.env.SESSION_SECRET,
     resave: false,
