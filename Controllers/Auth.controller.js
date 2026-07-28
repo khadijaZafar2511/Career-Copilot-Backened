@@ -31,12 +31,12 @@ const generateAccessTokenANDgenerateRefreshToken = async(userid) => {
 }
 
 
-const cookieOptions = {
-  httpOnly: true,
-  secure: false,
-  sameSite: "lax",
-  maxAge: 86400000 * 7,
-};
+    const cookieOptions = {           // for deployment
+           httpOnly: true,
+           secure: true, // Must be true for HTTPS/deployed
+           sameSite: "none", // Must be "none" for cross-site cookies
+           maxAge: 86400000 * 7,
+         };
 
 
 const authController = async (req, res, next) => {
@@ -62,12 +62,7 @@ const { accessToken, refreshToken }= await generateAccessTokenANDgenerateRefresh
       const user = toSafeObject(userWithEmail);
     
 
-      //    const cookieOptions = {            for deployment
-      //      httpOnly: true,
-      //      secure: true, // Must be true for HTTPS/deployed
-      //      sameSite: "none", // Must be "none" for cross-site cookies
-      //      maxAge: 86400000 * 7,
-      //    };
+     
 
       // for local hosting
 
