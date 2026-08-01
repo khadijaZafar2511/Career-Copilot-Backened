@@ -1,6 +1,6 @@
 import express from "express";
 
-import { chatWithAI } from "../controllers/ai.controller.js";
+import { chatWithAI } from "../Controllers/ai.controller.js";
 
 const aiRouter = express.Router();
 
