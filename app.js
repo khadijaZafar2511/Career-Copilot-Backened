@@ -12,6 +12,7 @@ import projectRouter from "./Routes/User.routes/Project.route.js"
 import { authMiddleware } from "./Middleware/Auth.middleware.js"
 import {optionalAuth} from "./Middleware/OptionalAuth.middleware.js"
 import cookieParser from "cookie-parser";
+import aiRouter from "./Routes/ai.route.js"
 import meRouter from "./Routes/UserInfo.route.js"
 import quizRouter from "./Routes/User.routes/Quiz.route.js";
 import dotenv from "dotenv";
@@ -22,6 +23,7 @@ const app = express();
 const allowedOrigins = [
   `${process.env.PRODUCTION_URL}`, // Your local Vite development server
   `${process.env.LOCAL_URL}`, // Add your production frontend URL here later
+  "http://localhost:4173",
 ];
 
 app.use(
@@ -43,6 +45,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static("Public"))
 // app.use(passport.initialize());
 // app.use(passport.session());
+app.use("/ai",aiRouter)
+app.use("/admin", adminRouter);
 app.use("/auth", authRouter);
 app.use(optionalAuth);
 app.use("/roadmap", roadmapRouter);
@@ -53,7 +57,7 @@ app.use(meRouter);
 app.use("/quiz",quizRouter)
 app.use("/user", userRouter);
 app.use("/user-roadmap", userRoadmapRouter);
-app.use("/admin",adminRouter)
+
 app.use("/progress", progressRouter);
 
 app.use(errorMiddleware);

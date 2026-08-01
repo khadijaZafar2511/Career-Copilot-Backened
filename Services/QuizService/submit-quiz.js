@@ -51,24 +51,37 @@ const attemptedQuiz = async (userId, milestoneId,userAnswers) => {
     // const taskIds=tasks.map(task=>task._id)
     // const usertasks = await UserTasks.find({ taskId: { $in: taskIds }, status: "completed" })
     // if(usertasks.length===taskIds.length){
-    userRoadmap.currentMilestone.status = "completed";   // why i am writing this
+    const isMatch =
+      userRoadmap.currentMilestone._id.toString() ===
+      quiz.milestoneId.toString();
+
+    if (isMatch) {
+      userRoadmap.currentMilestone.status = "completed"; 
+      const nextMilestoneOrder = userRoadmap.currentMilestone.order + 1;
+      const nextMilestone = await Milestone.findOne({
+        order: nextMilestoneOrder,
+        roadmapId,
+      });
+       const userProject = await UserProject.findOne({
+         userId,
+         userRoadmapId: userRoadmap._id,
+         status: "submitted",
+       });
+       if (!nextMilestone && userProject) {
+         userRoadmap.status = "completed";
+         userRoadmap.completedAt = new Date();
+         userRoadmap.progress = 100;
+       } else if (nextMilestone) {
+         nextMilestone.status = "not_started";
+         await nextMilestone.save();
+         userRoadmap.currentMilestone = nextMilestone;
+       }
+    }
+
 
     // console.log(userRoadmap)
-    const nextMilestoneOrder = userRoadmap.currentMilestone.order + 1;
-    const nextMilestone = await Milestone.findOne({
-      order: nextMilestoneOrder,
-      roadmapId,
-    });
-   const userProject = await UserProject.findOne({ userId, userRoadmapId:userRoadmap._id, status: "submitted" })
-    if (!nextMilestone && userProject) {
-      userRoadmap.status = "completed";
-      userRoadmap.completedAt = new Date();
-      userRoadmap.progress = 100;
-    } else if(nextMilestone){
-      nextMilestone.status = "not_started";
-      await nextMilestone.save();
-      userRoadmap.currentMilestone = nextMilestone;
-    }
+ 
+  
    
     await userRoadmap.save()}
   // }

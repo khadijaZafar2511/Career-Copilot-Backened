@@ -5,7 +5,7 @@ import ProjectResource from "../../Models/ProjectResource.model.js";
 import UserProject from "../../Models/User.models/ProjectProgress.model.js";
 const getProjectDetail = async (userId,roadmapId) => {
 
- 
+//  console.log("rodmap",roadmapId)
   const projectDetail = await Projects.aggregate([
     {
       $match: { roadmapId: roadmapId },
@@ -29,7 +29,7 @@ const getProjectDetail = async (userId,roadmapId) => {
       }
     }
   ]);
-
+// console.log(projectDetail)
   const userProject = await UserProject.findOne({
     userId,
     projectId: projectDetail[0]._id,

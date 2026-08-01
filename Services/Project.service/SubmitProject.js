@@ -48,6 +48,8 @@ const { submittedProject, roadmapId } = await viewSubmittedProject(
 
   await startedProject.save()
    await userRoadmap.save();
+
+  // console.log(startedProject)
   return startedProject;
 };
 
