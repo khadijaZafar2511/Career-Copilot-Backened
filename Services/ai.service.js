@@ -2,7 +2,7 @@ import groq from "../config/groq.js";
 
 export const generateAIResponse = async ({ prompt, context }) => {
   const stream = await groq.chat.completions.create({
-    model: "llama-3.3-70b-specdec",
+    model: "qwen/qwen3.8-27b",
 
     stream: true,
 
